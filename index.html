@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Lead Generation Calculator | Forecast Leads, Revenue, and ROI</title>
+        <meta name="description"
+            content="SEO-friendly lead generation calculator to project traffic, leads, opportunities, customers, revenue, CAC, and ROI. Adjust conversion rates, qualification, close rate, and deal size to model marketing performance." />
+        <meta name="keywords"
+            content="lead generation calculator, marketing ROI calculator, demand generation forecast, conversion rate, revenue calculator" />
+        <link rel="canonical" href="https://www.example.com/lead-generation-calculator" />
+        <meta property="og:title" content="Lead Generation Calculator" />
+        <meta property="og:description"
+            content="Model your marketing funnel in seconds and see projected leads, customers, CAC, and ROI." />
+        <meta property="og:type" content="website" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+            :root {
+                --brand: #0f172a;
+                --brand-dark: #0b1220;
+                --accent: #38bdf8;
+            }
+
+            body {
+                font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            }
+        </style>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        colors: {
+                            brand: {
+                                DEFAULT: '#0052cc',
+                                dark: '#0b1220',
+                            },
+                            accent: '#38bdf8',
+                        },
+                        boxShadow: {
+                            card: '0 20px 70px -40px rgba(15, 23, 42, 0.55)',
+                        },
+                    },
+                },
+            };
+        </script>
+    </head>
+
+    <body class="bg-slate-950 text-slate-100">
+        <div class="relative overflow-hidden">
+            <div
+                class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.12),transparent_32%),radial-gradient(circle_at_75%_10%,rgba(15,23,42,0.22),transparent_36%),radial-gradient(circle_at_50%_90%,rgba(56,189,248,0.08),transparent_32%)]">
+            </div>
+
+            <header class="relative border-b border-white/5 bg-slate-950/80 backdrop-blur">
+                <div class="mx-auto flex max-w-6xl flex-col items-center gap-6 px-6 py-12 text-center">
+                    <div class="space-y-3 max-w-3xl">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-accent">Lead generation
+                            calculator</p>
+                        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl text-white">Free Lead Generation
+                            Calculator</h1>
+                        <p class="text-sm text-slate-300 sm:text-base">Model your funnel in minutes with this <a
+                                href="https://leadinbox.io/lead-generation-calculator" class="hover:underline">lead
+                                generation calculator</a>. Adjust traffic,
+                            conversion, qualification, and close rates to see projected leads, opportunities, customers,
+                            CAC, and marketing ROI.</p>
+                    </div>
+                    <div class="grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
+                        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                            <p class="text-xs uppercase tracking-[0.16em] text-slate-400">Visibility</p>
+                            <p class="mt-1 text-lg font-semibold text-white">Leads → Revenue</p>
+                            <p class="text-xs text-slate-400">Full-funnel projections in one view</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                            <p class="text-xs uppercase tracking-[0.16em] text-slate-400">Benchmarks</p>
+                            <p class="mt-1 text-lg font-semibold text-white">Realistic ranges</p>
+                            <p class="text-xs text-slate-400">Conversion, qualification, close rate guardrails</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                            <p class="text-xs uppercase tracking-[0.16em] text-slate-400">Decisions</p>
+                            <p class="mt-1 text-lg font-semibold text-white">Budget clarity</p>
+                            <p class="text-xs text-slate-400">Evaluate spend vs. CAC and ROI</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="relative mx-auto flex max-w-6xl flex-col gap-10 px-6 py-12 lg:flex-row lg:py-16">
+                <section aria-label="Lead generation inputs" class="w-full lg:w-2/5">
+                    <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-card backdrop-blur">
+                        <div class="mb-6 flex items-center justify-between">
+                            <h2 class="text-xl font-semibold">Funnel Inputs</h2>
+                            <button id="reset"
+                                class="text-sm font-semibold text-accent hover:text-orange-400">Reset</button>
+                        </div>
+                        <div class="space-y-5">
+                            <label class="block space-y-2">
+                                <div class="flex items-center justify-between text-sm text-slate-300"><span>Monthly site
+                                        visitors</span><span id="visitorsVal" class="text-slate-100">25,000</span></div>
+                                <input id="visitors" type="range" min="1000" max="150000" step="1000" value="25000"
+                                    class="w-full accent-accent" />
+                            </label>
+                            <label class="block space-y-2">
+                                <div class="flex items-center justify-between text-sm text-slate-300"><span>Landing page
+                                        conversion rate (%)</span><span id="convVal" class="text-slate-100">3.5%</span>
+                                </div>
+                                <input id="conversion" type="range" min="0.5" max="15" step="0.1" value="3.5"
+                                    class="w-full accent-accent" />
+                            </label>
+                            <label class="block space-y-2">
+                                <div class="flex items-center justify-between text-sm text-slate-300">
+                                    <span>Lead-to-opportunity rate (%)</span><span id="mqlVal"
+                                        class="text-slate-100">40%</span>
+                                </div>
+                                <input id="mql" type="range" min="10" max="90" step="1" value="40"
+                                    class="w-full accent-accent" />
+                            </label>
+                            <label class="block space-y-2">
+                                <div class="flex items-center justify-between text-sm text-slate-300">
+                                    <span>Opportunity-to-close rate (%)</span><span id="closeVal"
+                                        class="text-slate-100">22%</span>
+                                </div>
+                                <input id="close" type="range" min="5" max="60" step="1" value="22"
+                                    class="w-full accent-accent" />
+                            </label>
+                            <label class="block space-y-2">
+                                <div class="flex items-center justify-between text-sm text-slate-300"><span>Average deal
+                                        value ($)</span><span id="dealVal" class="text-slate-100">$4,800</span></div>
+                                <input id="deal" type="range" min="500" max="25000" step="100" value="4800"
+                                    class="w-full accent-accent" />
+                            </label>
+                            <label class="block space-y-2">
+                                <div class="flex items-center justify-between text-sm text-slate-300"><span>Monthly
+                                        marketing spend ($)</span><span id="spendVal"
+                                        class="text-slate-100">$6,000</span></div>
+                                <input id="spend" type="range" min="1000" max="30000" step="500" value="6000"
+                                    class="w-full accent-accent" />
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <section aria-label="Lead generation outputs" class="w-full lg:w-3/5">
+                    <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-card backdrop-blur">
+                        <div class="mb-4 flex items-center justify-between">
+                            <h2 class="text-xl font-semibold">Performance Forecast</h2>
+                            <span class="rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold text-brand">Live
+                                update</span>
+                        </div>
+                        <div class="grid gap-4 md:grid-cols-2">
+                            <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
+                                <p class="text-sm text-slate-400">Leads / month</p>
+                                <p id="leads" class="mt-1 text-3xl font-semibold text-white">—</p>
+                                <p class="text-xs text-slate-500">Site visitors x landing conversion</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
+                                <p class="text-sm text-slate-400">Opportunities / month</p>
+                                <p id="opps" class="mt-1 text-3xl font-semibold text-white">—</p>
+                                <p class="text-xs text-slate-500">Leads that pass qualification</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
+                                <p class="text-sm text-slate-400">New customers / month</p>
+                                <p id="customers" class="mt-1 text-3xl font-semibold text-white">—</p>
+                                <p class="text-xs text-slate-500">Opportunities that close</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-5">
+                                <p class="text-sm text-slate-400">Projected revenue / month</p>
+                                <p id="revenue" class="mt-1 text-3xl font-semibold text-white">—</p>
+                                <p class="text-xs text-slate-500">Customers x average deal value</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid gap-4 md:grid-cols-3">
+                            <div class="rounded-2xl border border-white/10 bg-brand/10 p-4 text-brand">
+                                <p class="text-xs uppercase tracking-[0.12em]">Customer acquisition cost</p>
+                                <p id="cac" class="text-2xl font-semibold">—</p>
+                                <p class="text-[13px] text-brand/80">Spend divided by new customers</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-accent/10 p-4 text-accent">
+                                <p class="text-xs uppercase tracking-[0.12em]">ROI</p>
+                                <p id="roi" class="text-2xl font-semibold">—</p>
+                                <p class="text-[13px] text-slate-200/80">(Revenue - spend) / spend</p>
+                            </div>
+                            <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4 text-slate-100">
+                                <p class="text-xs uppercase tracking-[0.12em]">Revenue multiple</p>
+                                <p id="romi" class="text-2xl font-semibold">—</p>
+                                <p class="text-[13px] text-slate-300">Revenue divided by spend</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 rounded-2xl border border-white/10 bg-slate-900/70 p-4 text-sm text-slate-200">
+                            <p class="font-semibold text-white">How to improve</p>
+                            <ul class="mt-2 list-disc space-y-1 pl-4 text-slate-300">
+                                <li>Run targeted offers to lift landing conversion by 0.5–1.0%.</li>
+                                <li>Score leads and automate nurtures to boost qualification rates.</li>
+                                <li>Enable sales playbooks to raise close rates on high-fit accounts.</li>
+                                <li>Test higher-value bundles to increase average deal size without more traffic.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <section class="relative mx-auto max-w-6xl px-6 pb-14">
+                <div class="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+                    <div class="mb-4 space-y-2">
+                        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-accent">Guide</p>
+                        <h3 class="text-2xl font-bold text-white">How to use this lead generation calculator</h3>
+                        <p class="max-w-3xl text-sm text-slate-300">Use realistic conversion rate benchmarks, adjust
+                            traffic by channel, and plug in your average contract value to model pipeline health. Keep
+                            scenarios documented for SEO audits and budget approvals.</p>
+                    </div>
+                    <div class="grid gap-4 md:grid-cols-3">
+                        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                            <p class="text-sm font-semibold text-white">1) Enter traffic and conversion</p>
+                            <p class="mt-2 text-sm text-slate-300">Add monthly visitors and target landing page
+                                conversion. Small lifts in conversion typically outperform costly traffic increases.</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                            <p class="text-sm font-semibold text-white">2) Qualify opportunities</p>
+                            <p class="mt-2 text-sm text-slate-300">Tune lead-to-opportunity and close rates to mirror
+                                sales rigor. Align with historical CRM data for credible projections.</p>
+                        </div>
+                        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                            <p class="text-sm font-semibold text-white">3) Review CAC and ROI</p>
+                            <p class="mt-2 text-sm text-slate-300">Compare customer acquisition cost against average
+                                deal value. Track revenue multiple to validate marketing ROI and spend efficiency.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section aria-label="Lead generation FAQ" class="relative mx-auto max-w-6xl px-6 pb-20">
+                <div class="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+                    <div class="mb-6 space-y-2">
+                        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-accent">FAQ</p>
+                        <h3 class="text-2xl font-bold text-white">Lead generation calculator questions</h3>
+                        <p class="max-w-3xl text-sm text-slate-300">Grounded assumptions, realistic benchmarks, and the
+                            metrics growth teams watch.</p>
+                    </div>
+                    <div class="grid gap-5 md:grid-cols-2">
+                        <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+                            <h4 class="text-lg font-semibold text-white">Which inputs matter most?</h4>
+                            <p class="mt-2 text-sm text-slate-300">Landing conversion rate, lead qualification rate, and
+                                average deal value typically drive the largest swings in revenue. Traffic volume is a
+                                lever, but improving conversion quality usually produces faster ROI.</p>
+                        </article>
+                        <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+                            <h4 class="text-lg font-semibold text-white">What is a healthy ROI?</h4>
+                            <p class="mt-2 text-sm text-slate-300">High-performing demand engines target a 4–8x
+                                revenue-to-spend multiple with a CAC below 35–40% of average deal value. Use the
+                                calculator to stress-test scenarios before scaling spend.</p>
+                        </article>
+                        <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+                            <h4 class="text-lg font-semibold text-white">How should I pick benchmarks?</h4>
+                            <p class="mt-2 text-sm text-slate-300">If you lack historical data, start with 2–4% landing
+                                conversion, 25–45% lead-to-opportunity, and 15–25% close rate. Replace with your own
+                                metrics as soon as you have a 60–90 day sample.</p>
+                        </article>
+                        <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+                            <h4 class="text-lg font-semibold text-white">Does this include outbound?</h4>
+                            <p class="mt-2 text-sm text-slate-300">Yes—traffic can represent ad clicks, organic visits,
+                                or targeted outreach volume. Adjust the conversion rates to mirror your primary motion
+                                and compare blended outcomes.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script>
+            const fmtCurrency = (n) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+            const fmtNumber = (n) => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+            const fmtPercent = (n) => `${n.toFixed(1)}%`;
+
+            const elements = {
+                visitors: document.getElementById('visitors'),
+                conversion: document.getElementById('conversion'),
+                mql: document.getElementById('mql'),
+                close: document.getElementById('close'),
+                deal: document.getElementById('deal'),
+                spend: document.getElementById('spend'),
+                visitorsVal: document.getElementById('visitorsVal'),
+                convVal: document.getElementById('convVal'),
+                mqlVal: document.getElementById('mqlVal'),
+                closeVal: document.getElementById('closeVal'),
+                dealVal: document.getElementById('dealVal'),
+                spendVal: document.getElementById('spendVal'),
+                leads: document.getElementById('leads'),
+                opps: document.getElementById('opps'),
+                customers: document.getElementById('customers'),
+                revenue: document.getElementById('revenue'),
+                cac: document.getElementById('cac'),
+                roi: document.getElementById('roi'),
+                romi: document.getElementById('romi'),
+                reset: document.getElementById('reset'),
+            };
+
+            const defaults = { visitors: 25000, conversion: 3.5, mql: 40, close: 22, deal: 4800, spend: 6000 };
+
+            function updateLabels() {
+                elements.visitorsVal.textContent = fmtNumber(Number(elements.visitors.value));
+                elements.convVal.textContent = fmtPercent(Number(elements.conversion.value));
+                elements.mqlVal.textContent = `${Number(elements.mql.value).toFixed(0)}%`;
+                elements.closeVal.textContent = `${Number(elements.close.value).toFixed(0)}%`;
+                elements.dealVal.textContent = fmtCurrency(Number(elements.deal.value));
+                elements.spendVal.textContent = fmtCurrency(Number(elements.spend.value));
+            }
+
+            function calculate() {
+                const visitors = Number(elements.visitors.value);
+                const conversion = Number(elements.conversion.value) / 100;
+                const mql = Number(elements.mql.value) / 100;
+                const close = Number(elements.close.value) / 100;
+                const deal = Number(elements.deal.value);
+                const spend = Number(elements.spend.value);
+
+                const leads = visitors * conversion;
+                const opps = leads * mql;
+                const customers = opps * close;
+                const revenue = customers * deal;
+                const cac = customers > 0 ? spend / customers : 0;
+                const roi = spend > 0 ? ((revenue - spend) / spend) * 100 : 0;
+                const romi = spend > 0 ? revenue / spend : 0;
+
+                elements.leads.textContent = fmtNumber(leads);
+                elements.opps.textContent = fmtNumber(opps);
+                elements.customers.textContent = fmtNumber(customers);
+                elements.revenue.textContent = fmtCurrency(revenue);
+                elements.cac.textContent = customers > 0 ? fmtCurrency(cac) : '—';
+                elements.roi.textContent = isFinite(roi) ? `${roi.toFixed(0)}%` : '—';
+                elements.romi.textContent = isFinite(romi) ? `${romi.toFixed(1)}x` : '—';
+                updateLabels();
+            }
+
+            function resetForm() {
+                Object.entries(defaults).forEach(([key, value]) => {
+                    elements[key].value = value;
+                });
+                calculate();
+            }
+
+            ['visitors', 'conversion', 'mql', 'close', 'deal', 'spend'].forEach((key) => {
+                elements[key].addEventListener('input', calculate);
+            });
+
+            elements.reset.addEventListener('click', resetForm);
+            resetForm();
+        </script>
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Which inputs matter most?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Landing conversion rate, lead qualification rate, and average deal value typically drive the largest swings in revenue."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What is a healthy ROI?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "High-performing demand engines target a 4–8x revenue-to-spend multiple with a CAC below 35–40% of average deal value."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How should I pick benchmarks?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "If you lack historical data, start with 2–4% landing conversion, 25–45% lead-to-opportunity, and 15–25% close rate, then refine with your own metrics."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Does this include outbound?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Traffic can represent ad clicks, organic visits, or outbound volume; adjust conversion rates to mirror your primary motion."
+                        }
+                    }
+                ]
+            }
+        </script>
+    </body>
+
+</html>
